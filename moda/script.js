@@ -54,6 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
   buildProof();
   buildBrands();
   setupReveal();
+  setupCounter();
   setupStickyCta();
   setYear();
 });
@@ -234,6 +235,58 @@ function setupReveal() {
     e.style.transitionDelay = Math.min(i % 4, 3) * 70 + "ms";
     io.observe(e);
   });
+}
+
+/* ---------- Contador animado (seção "Comunidade") ----------
+   Só começa a contar quando a seção entra na tela, com um pequeno atraso
+   (pra pessoa não descer e já ver o número parado no final) e um blur/fade
+   de entrada suave antes de disparar a contagem. */
+function setupCounter() {
+  const el = document.querySelector("[data-counter]");
+  const wrap = document.querySelector("[data-counter-wrap]");
+  if (!el || !wrap) return;
+
+  const target = parseInt(el.dataset.target, 10) || 0;
+  const format = (n) => Math.round(n).toLocaleString("pt-BR");
+
+  if (!("IntersectionObserver" in window) ||
+      matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    wrap.classList.add("in");
+    el.textContent = format(target);
+    return;
+  }
+
+  const START_DELAY = 550; // ms — dá tempo de ver o número "nascer" antes de contar
+  const DURATION = 2200;   // ms — duração da contagem
+
+  const run = () => {
+    wrap.classList.add("in");
+    setTimeout(() => {
+      const t0 = performance.now();
+      const tick = (now) => {
+        const p = Math.min(1, (now - t0) / DURATION);
+        const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic — acelera e chega suave
+        el.textContent = format(target * eased);
+        if (p < 1) {
+          requestAnimationFrame(tick);
+        } else {
+          el.textContent = format(target);
+          el.classList.add("counter--done");
+        }
+      };
+      requestAnimationFrame(tick);
+    }, START_DELAY);
+  };
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        run();
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  io.observe(wrap);
 }
 
 /* ---------- Barra fixa depois do hero ---------- */
