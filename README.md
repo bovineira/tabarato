@@ -11,6 +11,10 @@ index.html      estrutura + copy
 styles.css      design system, hero 9:16, carrosséis, animações
 script.js       CONFIG (link do canal + assets), carrosséis, reveals
 assets/         background do hero, prints de depoimento, logos  (ver assets/README.md)
+
+moda/           variante da mesma página em /moda — identidade clara/rosa
+                (mesma copy e estrutura; cópia independente, com seus
+                próprios assets/, styles.css e script.js)
 ```
 
 ## Antes de publicar — 3 ajustes

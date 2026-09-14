@@ -1,0 +1,624 @@
+/* =========================================================
+   TáBarato /moda — Landing page (variante feminina: claro + rosa)
+   Mesma estrutura/layout da home; só a identidade de cor muda.
+   Mobile-first. O hero foi desenhado no formato 1080x1920 (9:16).
+   ========================================================= */
+
+:root {
+  /* Imagem do hero — troque o arquivo em /assets ou o caminho abaixo */
+  --hero-img: url("assets/hero-bg.webp");
+
+  /* Cores — identidade clara com toques de rosa */
+  --bg:        #FFF6FA;
+  --surface:   #FFFFFF;
+  --surface-2: #FFE9F2;
+  --line:      rgba(214, 51, 122, 0.16);
+  --text:      #3A1626;
+  --muted:     #93697D;
+
+  --pink:   #E8156F;
+  --pink-2: #FF7EB3;
+  --mint:   #4FD8A8;
+  --yellow: #FFC53D;
+  --red:    #E5344F;
+
+  /* Gradiente animado das palavras de destaque — sempre saturado,
+     nunca clareia demais (senão some no fundo branco) */
+  --shine-grad: linear-gradient(100deg,
+      #E8156F 0%, #FF5FA3 18%, #FF9AC5 37%, #FF3D8F 50%,
+      #FF9AC5 63%, #FF5FA3 82%, #E8156F 100%);
+
+  /* Layout */
+  --maxw: 480px;          /* largura “de celular” no desktop */
+  --radius: 18px;
+  --ease: cubic-bezier(.22, .68, .18, 1);
+
+  --font-display: "Anton", system-ui, sans-serif;
+  --font-text: "Manrope", system-ui, -apple-system, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-text);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img { max-width: 100%; display: block; }
+strong { font-weight: 800; color: #2A0F1C; }
+
+/* ---------- Fundo ambiente (imagem do hero desfocada) ---------- */
+.ambient {
+  position: fixed;
+  inset: -20% -20% -20% -20%;
+  z-index: -1;
+  background: var(--hero-img) center / cover no-repeat;
+  filter: blur(70px) saturate(1.05) brightness(1.08);
+  transform: scale(1.15);
+}
+.ambient::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 60% at 50% 0%, rgba(232, 21, 111, .08), transparent 60%),
+    linear-gradient(180deg, rgba(255, 255, 255, .55), rgba(255, 246, 250, .92));
+}
+
+/* =========================================================
+   PALAVRAS DE DESTAQUE — gradiente que se move
+   ========================================================= */
+.shine {
+  /* Importante: NÃO usar filter/drop-shadow nem text-shadow escuro aqui —
+     em fontes pesadas isso "preenche" as letras e o gradiente some.
+     O brilho é só um halo rosa bem leve. */
+  background: var(--shine-grad);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  text-shadow: 0 0 20px rgba(232, 21, 111, .18);
+  animation: shine 5.5s linear infinite;
+}
+@keyframes shine {
+  to { background-position: -220% 0; }
+}
+
+/* =========================================================
+   HERO — 1080 x 1920 (9:16)
+   ========================================================= */
+.hero {
+  display: grid;
+  place-items: center;
+  /* sem min-height aqui: no mobile o hero fica do tamanho exato do frame
+     9:16, sem sobra em cima/embaixo. No desktop (media query abaixo)
+     voltamos a centralizar na tela — lá é um "cartão" flutuante, de propósito. */
+  padding: 0;
+}
+
+.hero__frame {
+  position: relative;
+  width: 100%;
+  max-width: 520px;               /* no desktop vira um “story” centralizado */
+  aspect-ratio: 1080 / 1920;      /* 9:16 exato — o background aparece INTEIRO */
+  max-height: 100svh;
+  overflow: hidden;
+  background: #fff5f9 var(--hero-img) center / cover no-repeat;
+  isolation: isolate;
+}
+
+/* Clareamento suave no frame inteiro — o texto (escuro) vira o foco
+   independente do que tiver no background do usuário */
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(255, 255, 255, .30), rgba(255, 255, 255, .30)),
+    linear-gradient(180deg,
+      rgba(255, 255, 255, .55) 0%,
+      rgba(255, 255, 255, .18) 20%,
+      rgba(255, 255, 255, .18) 38%,
+      rgba(255, 240, 247, .70) 60%,
+      rgba(255, 232, 243, .93) 100%);
+}
+
+.hero__content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;      /* copy ancorada na parte de baixo */
+  gap: clamp(14px, 3.6vw, 22px);
+  text-align: center;
+  padding: 7% 7% 9%;
+}
+
+.eyebrow {
+  margin: 0;
+  font-weight: 800;
+  font-size: clamp(.68rem, 3vw, .8rem);
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--pink);
+  text-shadow: 0 1px 12px rgba(255, 255, 255, .7);
+}
+
+.hero__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(2.6rem, 12.5vw, 4.2rem);
+  line-height: .92;
+  letter-spacing: .005em;
+  color: var(--text);
+  text-shadow: 0 2px 20px rgba(255, 255, 255, .85), 0 1px 4px rgba(255, 255, 255, .9);
+}
+
+.hero__sub {
+  margin: 0;
+  max-width: 30ch;
+  font-size: clamp(.98rem, 4.2vw, 1.16rem);
+  font-weight: 500;
+  color: #5B2E44;
+  text-shadow: 0 2px 14px rgba(255, 255, 255, .8), 0 1px 2px rgba(255, 255, 255, .9);
+}
+
+/* =========================================================
+   BOTÃO CTA
+   ========================================================= */
+.btn {
+  --glow: rgba(232, 21, 111, .40);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 380px;
+  padding: 18px 26px;
+  border-radius: 999px;
+  font-family: var(--font-text);
+  font-weight: 800;
+  font-size: clamp(1rem, 4.4vw, 1.14rem);
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(180deg, #FF4B93, #E8156F);
+  box-shadow:
+    0 10px 30px -6px var(--glow),
+    inset 0 1px 0 rgba(255, 255, 255, .45);
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform .18s var(--ease), box-shadow .25s var(--ease);
+  animation: btnPulse 2.6s ease-in-out infinite;
+}
+.btn svg { flex: none; }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 16px 40px -6px var(--glow), inset 0 1px 0 rgba(255,255,255,.45); }
+.btn:active { transform: translateY(0) scale(.99); }
+.btn:focus-visible { outline: 3px solid var(--text); outline-offset: 3px; }
+
+/* brilho que cruza o botão */
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, .55) 50%, transparent 70%);
+  transform: translateX(-120%);
+  animation: btnSweep 3.4s ease-in-out infinite;
+}
+@keyframes btnSweep {
+  0%, 55% { transform: translateX(-120%); }
+  80%, 100% { transform: translateX(120%); }
+}
+@keyframes btnPulse {
+  0%, 100% { box-shadow: 0 10px 30px -6px var(--glow), inset 0 1px 0 rgba(255,255,255,.45); }
+  50%      { box-shadow: 0 10px 44px 0 var(--glow), inset 0 1px 0 rgba(255,255,255,.45); }
+}
+
+.btn--sm {
+  width: auto;
+  padding: 12px 20px;
+  font-size: .9rem;
+  animation: none;
+  flex: none;
+}
+.btn--sm::after { display: none; }
+
+/* =========================================================
+   AVISO VERMELHO + TRIÂNGULO
+   ========================================================= */
+.warn {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0;
+  max-width: 34ch;
+  padding: 9px 15px;
+  border-radius: 12px;
+  background: rgba(229, 52, 79, .08);
+  border: 1px solid rgba(229, 52, 79, .35);
+  color: var(--red);
+  font-size: clamp(.8rem, 3.5vw, .92rem);
+  font-weight: 600;
+  line-height: 1.35;
+  text-align: left;
+  backdrop-filter: blur(4px);
+  animation: warnPulse 2.2s ease-in-out infinite;
+}
+.warn strong { color: #7A0F2A; }
+.warn__icon { flex: none; filter: drop-shadow(0 0 8px rgba(255, 197, 61, .55)); }
+@keyframes warnPulse {
+  0%, 100% { border-color: rgba(229, 52, 79, .22); background: rgba(229, 52, 79, .06); }
+  50%      { border-color: rgba(229, 52, 79, .50); background: rgba(229, 52, 79, .12); }
+}
+
+/* =========================================================
+   BENEFÍCIOS
+   ========================================================= */
+.benefits {
+  padding: clamp(38px, 9vw, 64px) 20px;
+  display: flex;
+  justify-content: center;
+}
+.benefits__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: var(--maxw);
+  display: grid;
+  gap: 12px;
+}
+.bcard {
+  background: linear-gradient(180deg, var(--surface), var(--surface-2));
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px 18px 16px;
+  box-shadow: 0 16px 34px -22px rgba(232, 21, 111, .35);
+}
+.bcard__ico {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  color: var(--pink);
+  background: rgba(232, 21, 111, .10);
+  border: 1px solid rgba(232, 21, 111, .25);
+  margin-bottom: 10px;
+}
+.bcard h3 {
+  margin: 0 0 4px;
+  font-size: 1.06rem;
+  font-weight: 800;
+  color: var(--text);
+}
+.bcard p { margin: 0; color: var(--muted); font-size: .94rem; }
+
+/* =========================================================
+   SEÇÕES GENÉRICAS
+   ========================================================= */
+.section {
+  padding: clamp(46px, 12vw, 84px) 0;
+  overflow: hidden;
+}
+.section__head {
+  max-width: var(--maxw);
+  margin: 0 auto clamp(22px, 6vw, 34px);
+  padding: 0 20px;
+  text-align: center;
+}
+.section__title {
+  margin: 8px 0 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(2rem, 9vw, 3.1rem);
+  line-height: .95;
+  color: var(--text);
+}
+.section__sub { margin: 12px 0 0; color: var(--muted); font-size: 1rem; }
+.section__note {
+  max-width: var(--maxw);
+  margin: 18px auto 0;
+  padding: 0 20px;
+  text-align: center;
+  color: var(--muted);
+  font-size: .86rem;
+}
+.section--proof {
+  background:
+    radial-gradient(90% 50% at 50% 0%, rgba(232, 21, 111, .06), transparent 70%);
+}
+
+/* =========================================================
+   CARROSSÉIS (marquee) — lento e elegante
+   ========================================================= */
+.marquee {
+  --gap: 16px;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+.marquee__track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+.marquee--proof  .marquee__track { animation: marquee 60s linear infinite; }
+.marquee--brands .marquee__track { animation: marquee 40s linear infinite; }
+.marquee:hover .marquee__track { animation-play-state: paused; }
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* item base: a margem direita faz o loop ser perfeito */
+.marquee__item { margin-right: var(--gap); flex: none; }
+
+/* --- Card de depoimento (print de WhatsApp) ---
+   Proporção igual à dos prints reais (1520 x 2688) — sem cortar nada. */
+.proof-card {
+  width: clamp(200px, 62vw, 264px);
+  aspect-ratio: 1520 / 2688;
+  border-radius: 26px;
+  overflow: hidden;
+  background: #0b141a;
+  border: 1px solid var(--line);
+  box-shadow: 0 22px 44px -20px rgba(232, 21, 111, .30);
+}
+.proof-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Placeholder “chat” gerado via CSS quando não há print ainda
+   (mantém as cores reais do WhatsApp — é a réplica do app, não da marca) */
+.wa {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  background:
+    linear-gradient(rgba(11, 20, 26, .92), rgba(11, 20, 26, .92)),
+    repeating-linear-gradient(135deg, #0e1a20 0 12px, #0b141a 12px 24px);
+}
+.wa__bar {
+  display: flex; align-items: center; gap: 8px;
+  padding: 12px 12px;
+  background: #1f2c33;
+  color: #fff; font-weight: 700; font-size: .8rem;
+}
+.wa__bar::before {
+  content: ""; width: 26px; height: 26px; border-radius: 50%;
+  background: linear-gradient(180deg, #FF7EB3, #E8156F);
+  flex: none;
+}
+.wa__body {
+  flex: 1;
+  padding: 14px 12px;
+  display: flex; flex-direction: column; gap: 9px;
+}
+.wa__msg {
+  align-self: flex-end;
+  max-width: 82%;
+  padding: 8px 11px 6px;
+  border-radius: 12px 12px 4px 12px;
+  background: #005c4b;
+  color: #eaf6f1;
+  font-size: .82rem;
+  line-height: 1.35;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .3);
+}
+.wa__msg--in {
+  align-self: flex-start;
+  background: #1f2c33;
+  border-radius: 12px 12px 12px 4px;
+}
+.wa__msg b { color: #8BFF7A; }
+.wa__msg::after {
+  content: attr(data-t);
+  display: block;
+  text-align: right;
+  font-size: .62rem;
+  opacity: .55;
+  margin-top: 2px;
+}
+.wa__foot {
+  margin-top: auto;
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 10px 10px;
+}
+.wa__foot span {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #1f2c33;
+  color: #6b7c84;
+  font-size: .74rem;
+}
+.wa__foot::after {
+  content: "";
+  width: 30px; height: 30px; border-radius: 50%;
+  background: linear-gradient(180deg, #FF7EB3, #E8156F);
+  flex: none;
+}
+
+/* --- Logo de marketplace --- */
+.brand-pill {
+  height: 78px;
+  min-width: 176px;
+  padding: 0 26px;
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #fff, #FFF0F6);
+  border: 1px solid var(--line);
+  box-shadow: 0 16px 30px -16px rgba(232, 21, 111, .35);
+}
+.brand-pill img { max-height: 42px; width: auto; object-fit: contain; }
+.brand-pill__txt {
+  font-weight: 800;
+  font-size: 1.12rem;
+  color: #2A0F1C;
+  letter-spacing: -.01em;
+  white-space: nowrap;
+}
+.brand-pill__dot { width: 12px; height: 12px; border-radius: 50%; flex: none; }
+
+/* =========================================================
+   CTA FINAL
+   ========================================================= */
+.finalcta {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: clamp(40px, 11vw, 76px) 22px clamp(52px, 12vw, 90px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+.finalcta__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(2rem, 9.5vw, 3rem);
+  line-height: .95;
+  color: var(--text);
+}
+.finalcta__sub { margin: 0; color: var(--muted); }
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.footer {
+  border-top: 1px solid var(--line);
+  padding: 30px 22px 40px;
+  text-align: center;
+}
+.footer__brand {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  color: var(--text);
+}
+.footer__brand span { color: var(--pink); }
+.footer__tag { margin: 4px 0 14px; color: var(--muted); font-size: .9rem; }
+.footer__legal { margin: 0; color: #A2809A; font-size: .74rem; max-width: 40ch; margin-inline: auto; }
+
+/* =========================================================
+   STICKY CTA (mobile)
+   ========================================================= */
+.sticky-cta {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+  background: rgba(255, 255, 255, .90);
+  border-top: 1px solid var(--line);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 -8px 30px -18px rgba(232, 21, 111, .35);
+  transform: translateY(130%);
+  transition: transform .38s var(--ease);
+}
+.sticky-cta.show { transform: none; }
+.sticky-cta__txt { font-size: .82rem; color: var(--muted); line-height: 1.3; flex: 1; }
+.sticky-cta__txt strong { color: var(--red); }
+
+/* no mobile, reserva espaço pra barra fixa não cobrir o rodapé */
+@media (max-width: 719px) {
+  body { padding-bottom: calc(74px + env(safe-area-inset-bottom)); }
+}
+@media (min-width: 720px) { .sticky-cta { display: none; } }
+
+/* =========================================================
+   AVISO DE NAVEGADOR EMBUTIDO (Instagram/TikTok/Facebook no iOS)
+   ========================================================= */
+.inapp-hint {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: calc(10px + env(safe-area-inset-top)) 14px 10px;
+  background: rgba(255, 255, 255, .96);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(12px);
+  transform: translateY(-130%);
+  transition: transform .38s var(--ease);
+}
+.inapp-hint.show { transform: none; }
+.inapp-hint p { margin: 0; flex: 1; font-size: .8rem; line-height: 1.4; color: var(--text); }
+.inapp-hint p strong { color: var(--pink); }
+.inapp-hint button {
+  flex: none;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: rgba(0, 0, 0, .04);
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+/* =========================================================
+   REVEAL (entrada ao rolar)
+   ========================================================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .7s var(--ease), transform .7s var(--ease);
+}
+.reveal.in { opacity: 1; transform: none; }
+
+/* =========================================================
+   DESKTOP — hero vira um “story” centralizado
+   ========================================================= */
+@media (min-width: 560px) {
+  .hero { padding: 32px 16px; min-height: 100svh; }
+  .hero__frame {
+    min-height: 0;
+    height: min(90svh, 900px);
+    width: auto;
+    border-radius: 26px;
+    border: 1px solid var(--line);
+    box-shadow: 0 40px 90px -30px rgba(232, 21, 111, .28), 0 20px 45px -25px rgba(0, 0, 0, .18);
+  }
+}
+
+/* =========================================================
+   MOVIMENTO REDUZIDO
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  .shine { animation: none; }
+  .btn { animation: none; }
+  .btn::after { display: none; }
+  .warn { animation: none; }
+  .marquee__track { animation: none; overflow-x: auto; }
+  .marquee {
+    overflow-x: auto;
+    -webkit-mask-image: none; mask-image: none;
+    scroll-snap-type: x mandatory;
+  }
+  .marquee__item { scroll-snap-align: center; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
