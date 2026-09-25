@@ -83,6 +83,15 @@ function buildWhatsAppHref(url, { inApp, isAndroid }) {
   return `intent://${semProtocolo}#Intent;scheme=https;package=com.whatsapp;S.browser_fallback_url=${fallback};end`;
 }
 
+/* Dispara a conversão "Subscribe" do Meta Pixel no clique do CTA. Em
+   try/catch e checando se fbq existe pra nunca travar o clique (adblock,
+   pixel bloqueado, etc. não podem impedir a pessoa de entrar no grupo). */
+function trackSubscribe() {
+  try {
+    if (typeof fbq === "function") fbq("track", "Subscribe");
+  } catch (e) { /* pixel indisponível — segue o jogo */ }
+}
+
 function wireCtas() {
   const url = CONFIG.channelUrl && CONFIG.channelUrl.trim();
   const env = detectInAppBrowser();
@@ -90,6 +99,7 @@ function wireCtas() {
   document.querySelectorAll("[data-cta]").forEach((a) => {
     if (url && url !== "#") {
       a.href = buildWhatsAppHref(url, env);
+      a.addEventListener("click", trackSubscribe);
     } else {
       a.addEventListener("click", (e) => {
         e.preventDefault();
