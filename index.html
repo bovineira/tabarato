@@ -22,165 +22,226 @@
   <!-- End Meta Pixel Code -->
 
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#07090C" />
+  <meta name="theme-color" content="#1AA3DB" />
 
-  <title>TáBarato — As melhores ofertas dos maiores marketplaces</title>
-  <meta name="description" content="Entre no canal TáBarato e receba as melhores ofertas do Mercado Livre, Amazon e Shopee todos os dias. Menor preço real, links verificados e 100% de segurança." />
+  <title>TáBarato | As Melhores Promoções da Internet</title>
+  <meta name="description" content="Entre no grupo TáBarato e receba as melhores promoções e achadinhos do Mercado Livre, Amazon e Shopee todos os dias. Links verificados e 100% seguros." />
 
   <!-- Open Graph / redes sociais -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="TáBarato — As melhores ofertas dos maiores marketplaces" />
-  <meta property="og:description" content="Ofertas garimpadas todos os dias no Mercado Livre, Amazon e Shopee. Menor preço real e 100% de segurança." />
+  <meta property="og:title" content="TáBarato | As Melhores Promoções da Internet" />
+  <meta property="og:description" content="Promoções e achadinhos todos os dias no Mercado Livre, Amazon e Shopee. Entre no grupo e economize de verdade." />
   <meta property="og:image" content="assets/og.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Favicon (tag de preço) -->
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2307090C'/%3E%3Cpath d='M7 16.5 15.5 8H22a2 2 0 0 1 2 2v6.5L15.5 25 7 16.5Z' fill='none' stroke='%231FE06B' stroke-width='2.4' stroke-linejoin='round'/%3E%3Ccircle cx='19' cy='13' r='1.8' fill='%231FE06B'/%3E%3C/svg%3E" />
+  <!-- Favicon (moeda) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23F6C945'/%3E%3Ccircle cx='16' cy='16' r='10' fill='%238FA4B8' stroke='%23fff' stroke-width='1.5'/%3E%3Ctext x='16' y='21' font-family='Arial' font-weight='bold' font-size='14' text-anchor='middle' fill='%23fff'%3E$%3C/text%3E%3C/svg%3E" />
 
   <!-- Fontes -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Fundo ambiente (imagem do hero desfocada) -->
-  <div class="ambient" aria-hidden="true"></div>
-
   <main>
-    <!-- ===================== HERO (1080 x 1920 · 9:16) ===================== -->
-    <section class="hero" id="hero" aria-label="Apresentação do canal TáBarato">
-      <div class="hero__frame">
-        <div class="hero__scrim" aria-hidden="true"></div>
+    <!-- ===================== HERO ===================== -->
+    <section class="hero" id="header" aria-label="Entre no grupo de promoções TáBarato">
+      <div class="hero__coins" aria-hidden="true"></div>
 
-        <div class="hero__content">
-          <p class="eyebrow reveal">Comunidade TáBarato</p>
+      <div class="wrap hero__inner">
+        <a class="logo" href="#header" aria-label="TáBarato">
+          <svg class="logo__coin" viewBox="0 0 64 64" aria-hidden="true">
+            <circle cx="32" cy="32" r="30" fill="#F6C945"/>
+            <circle cx="32" cy="32" r="21" fill="#8FA4B8" stroke="#fff" stroke-width="3"/>
+            <text x="32" y="42" font-family="Montserrat, Arial" font-weight="800" font-size="28" text-anchor="middle" fill="#fff">$</text>
+          </svg>
+          <span class="logo__txt">tá<b>Barato</b></span>
+        </a>
 
-          <h1 class="hero__title reveal">
-            O melhor canal pra quem quer
-            <span class="shine">economizar</span>
-          </h1>
+        <div class="hero__copy">
+          <h1 class="hero__title">Você gosta de <span class="hl hl--hero">economizar</span>?</h1>
+          <p class="hero__sub">A gente garimpa as <strong>melhores promoções</strong> e <strong>achadinhos</strong> do momento e publica <strong>tudo no nosso Grupo</strong>.</p>
+        </div>
 
-          <p class="hero__sub reveal">
-            Ofertas garimpadas todos os dias no <strong>Mercado Livre</strong>,
-            <strong>Amazon</strong> e <strong>Shopee</strong>. Só o
-            <span class="shine">menor preço real</span>, com links verificados
-            e <span class="shine">100% de segurança</span> — é entrar e economizar.
-          </p>
+        <div class="card hero__card" id="entrar">
+          <div class="card__head">
+            <span class="live"><i></i>Vagas abertas agora</span>
+            <h3>Entre no Grupo de Promoções</h3>
+          </div>
+          <div class="card__body">
+            <a class="cta" data-cta href="#" target="_blank" rel="noopener">
+              <span class="cta__ico"><svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><path fill="currentColor" d="M16.04 3C9.4 3 4 8.4 4 15.04c0 2.12.55 4.19 1.6 6.02L4 28l7.1-1.86a12 12 0 0 0 4.94 1.06h.01C22.68 27.2 28 21.8 28 15.16 28 8.5 22.7 3 16.04 3Zm0 21.9h-.01a9.9 9.9 0 0 1-5.04-1.38l-.36-.21-4.2 1.1 1.12-4.1-.24-.38a9.9 9.9 0 0 1-1.52-5.27c0-5.5 4.47-9.97 9.98-9.97 2.66 0 5.16 1.04 7.04 2.92a9.9 9.9 0 0 1 2.92 7.06c0 5.5-4.48 9.97-9.99 9.97Zm5.47-7.46c-.3-.15-1.77-.87-2.04-.97-.28-.1-.48-.15-.68.15-.2.3-.78.97-.95 1.17-.18.2-.35.22-.65.07-.3-.15-1.27-.47-2.42-1.5-.9-.8-1.5-1.78-1.67-2.08-.18-.3-.02-.46.13-.6.13-.14.3-.35.45-.53.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.68-1.64-.93-2.25-.25-.58-.5-.5-.68-.51h-.58c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.9 1.22 3.1c.15.2 2.1 3.2 5.08 4.49.7.3 1.26.49 1.69.62.7.23 1.35.2 1.86.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35Z"/></svg></span>
+              <span class="cta__txt">
+                <b>Quero entrar no grupo</b>
+                <small>100% grátis · entre agora</small>
+              </span>
+              <svg class="cta__arrow" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M7 6l6 6-6 6M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="cta__shine" aria-hidden="true"></span>
+            </a>
+            <p class="warn" role="alert">
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 4 22 20H2L12 4Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M12 10v4.4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="17.2" r="1.2" fill="currentColor"/></svg>
+              <span>Grupo vira <b>pago a qualquer momento</b></span>
+            </p>
+          </div>
+        </div>
+      </div>
 
-          <a class="btn reveal" data-cta href="#" target="_blank" rel="noopener">
-            <span>Entre agora no canal</span>
-            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-              <path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </a>
+      <svg class="hero__wave" viewBox="0 0 1440 150" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0,70 C220,135 470,15 760,72 C1040,128 1230,30 1440,86 L1440,150 L0,150 Z" fill="#fff"/>
+      </svg>
+    </section>
 
-          <p class="warn reveal" role="alert">
-            <svg class="warn__icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-              <path d="M12 3.5 22 20H2L12 3.5Z" fill="#FFC53D" stroke="#111" stroke-width="1" stroke-linejoin="round"/>
-              <rect x="11" y="9.5" width="2" height="5.4" rx="1" fill="#111"/>
-              <circle cx="12" cy="17.4" r="1.25" fill="#111"/>
-            </svg>
-            <span>Entre agora, pois o grupo vai se tornar <strong>pago a qualquer momento</strong>.</span>
-          </p>
+    <!-- ===================== LOJAS ===================== -->
+    <section class="block stores" aria-label="Lojas">
+      <div class="wrap center">
+        <h2 class="h2 reveal">As Melhores <span class="hl">Lojas</span> do Brasil</h2>
+        <p class="lead reveal">Divulgamos promoções de <strong>lojas confiáveis e seguras</strong>.</p>
+        <div class="brands reveal" data-brands></div>
+      </div>
+    </section>
+
+    <!-- ===================== VANTAGENS ===================== -->
+    <section class="block perks" aria-label="Vantagens do TáBarato">
+      <div class="wrap center">
+        <h2 class="h2 reveal">Veja as <span class="hl">vantagens</span> do TáBarato</h2>
+        <p class="lead reveal">Nós <strong>conferimos tudo</strong>, você sempre vai <strong>economizar</strong></p>
+
+        <div class="slider reveal" data-slider>
+          <article class="perk">
+            <svg class="perk__ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M8 33 33 8h19v19L27 52 8 33Z" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linejoin="round"/><circle cx="42" cy="18" r="3.6" fill="none" stroke="currentColor" stroke-width="3.2"/><path d="M22 39l12-12M24 29h.01M32 37h.01" fill="none" stroke="currentColor" stroke-width="3.6" stroke-linecap="round"/></svg>
+            <h3>Economize todos os dias</h3>
+            <p>Publicamos várias promoções e cupons de desconto o dia inteiro.</p>
+          </article>
+          <article class="perk">
+            <svg class="perk__ico" viewBox="0 0 64 64" aria-hidden="true"><rect x="12" y="28" width="40" height="28" rx="5" fill="none" stroke="currentColor" stroke-width="3.2"/><path d="M20 28V20a12 12 0 0 1 24 0v8" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/><path d="M32 38v8" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg>
+            <h3>Segurança</h3>
+            <p>Divulgamos ofertas apenas de grandes lojas confiáveis, que você já conhece.</p>
+          </article>
+          <article class="perk">
+            <svg class="perk__ico" viewBox="0 0 64 64" aria-hidden="true"><path d="M8 24 14 10h36l6 14" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linejoin="round"/><path d="M8 24c0 4 3 6 6.3 6S20 28 20 24c0 4 3 6 6 6s6-2 6-6c0 4 3 6 6 6s6-2 6-6c0 4 2.7 6 5.7 6S56 28 56 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linejoin="round"/><path d="M12 31v23h40V31M26 54V40h12v14" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linejoin="round"/></svg>
+            <h3>As maiores lojas</h3>
+            <p>Mercado Livre, Amazon, Shopee e muito mais, tudo num só lugar.</p>
+          </article>
+          <article class="perk">
+            <svg class="perk__ico" viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="22" width="48" height="12" rx="3" fill="none" stroke="currentColor" stroke-width="3.2"/><path d="M12 34v20h40V34M32 22v32" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linejoin="round"/><path d="M32 22c-3-9-14-11-14-5 0 4 8 5 14 5Zm0 0c3-9 14-11 14-5 0 4-8 5-14 5Z" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linejoin="round"/></svg>
+            <h3>Grupo grátis</h3>
+            <p>Você não paga nada para entrar e pode sair a hora que quiser.</p>
+          </article>
+        </div>
+        <div class="dots" data-dots aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- ===================== NÚMEROS ===================== -->
+    <section class="block numbers" aria-label="Alguns números">
+      <div class="wrap">
+        <p class="eyebrow reveal">Alguns números</p>
+        <h2 class="h2 h2--caps reveal">Uma comunidade que <span class="hl">cresce</span> todo dia</h2>
+        <p class="lead lead--left reveal">Mais de <strong>7.436 pessoas</strong> já estão dentro dos nossos grupos aproveitando as <strong>promoções de verdade</strong>.</p>
+
+        <div class="stats reveal" data-stats>
+          <div class="stat">
+            <span class="stat__hot">HOT</span>
+            <h3 class="stat__num"><span class="count" data-counter data-target="7436" data-prefix="+">+7.436</span></h3>
+            <p>participantes</p>
+          </div>
+          <div class="stat">
+            <h3 class="stat__num">+3</h3>
+            <p>maiores marketplaces</p>
+          </div>
+          <div class="stat">
+            <h3 class="stat__num">7</h3>
+            <p>dias por semana</p>
+          </div>
+          <div class="stat">
+            <h3 class="stat__num">100%</h3>
+            <p>links verificados</p>
+          </div>
+        </div>
+
+        <figure class="groups reveal">
+          <figcaption class="tag">Nossos grupos</figcaption>
+          <img src="assets/sessao-02-membros.webp" alt="Vários grupos TáBarato ativos, cada um com milhares de membros" loading="lazy" />
+        </figure>
+      </div>
+    </section>
+
+    <!-- ===================== DEPOIMENTOS ===================== -->
+    <section class="block proof" aria-label="Depoimentos de membros">
+      <div class="wrap">
+        <p class="eyebrow reveal">Quem entra, aprova</p>
+        <h2 class="h2 h2--caps reveal">Todo mundo tá <span class="hl">economizando</span> no grupo</h2>
+      </div>
+      <div class="marquee reveal" data-marquee="proof" aria-label="Prints de conversas de membros do grupo">
+        <div class="marquee__track" data-track></div>
+      </div>
+      <p class="note reveal">Prints reais enviados por membros do <strong>grupo</strong>.</p>
+    </section>
+
+    <!-- ===================== FAQ ===================== -->
+    <section class="block faq" aria-label="Perguntas frequentes">
+      <div class="wrap">
+        <h2 class="h1 center reveal">Perguntas <span class="hl">frequentes</span></h2>
+        <div class="faq__list reveal" data-faq>
+          <details>
+            <summary>Os grupos de promoções no WhatsApp são gratuitos?</summary>
+            <p>Sim. Hoje o acesso ao grupo é totalmente grátis e você pode entrar e sair a hora que quiser. Como ele pode se tornar pago a qualquer momento, o ideal é entrar agora.</p>
+          </details>
+          <details>
+            <summary>Como são selecionadas as promoções e descontos?</summary>
+            <p>Nossa equipe acompanha as ofertas das maiores lojas todos os dias, confere o preço e só publica o que realmente vale a pena.</p>
+          </details>
+          <details>
+            <summary>É confiável comprar através do grupo?</summary>
+            <p>Sim. Divulgamos apenas links oficiais de Mercado Livre, Amazon e Shopee. A compra é finalizada direto no site da loja — nós não vendemos nem recebemos pagamento.</p>
+          </details>
+          <details>
+            <summary>Quais tipos de produtos posso comprar com desconto pelo grupo?</summary>
+            <p>Eletrônicos, casa, beleza, moda, perfumaria, games e muito mais: os achadinhos do momento nas maiores lojas do Brasil.</p>
+          </details>
+          <details>
+            <summary>Qual a principal vantagem de participar do grupo de ofertas do TáBarato?</summary>
+            <p>Economizar tempo e dinheiro. As melhores promoções chegam direto no seu WhatsApp, sem você precisar ficar garimpando preço por aí.</p>
+          </details>
         </div>
       </div>
     </section>
 
-    <!-- ===================== BENEFÍCIOS ===================== -->
-    <section class="benefits" aria-label="Por que entrar no TáBarato">
-      <ul class="benefits__grid">
-        <li class="bcard reveal">
-          <span class="bcard__ico" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="22" height="22"><path d="M4 13 13 4h7v7l-9 9-7-7Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="16" cy="8" r="1.6" fill="currentColor"/></svg>
-          </span>
-          <h3>Melhores ofertas</h3>
-          <p>Curadoria diária: só o que realmente vale a pena entra no canal.</p>
-        </li>
-        <li class="bcard reveal">
-          <span class="bcard__ico" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="22" height="22"><path d="M3 7l6 6 4-4 8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15 20h6v-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </span>
-          <h3>Melhor preço</h3>
-          <p>Histórico de preço conferido pra você nunca cair em falso desconto.</p>
-        </li>
-        <li class="bcard reveal">
-          <span class="bcard__ico" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 3 5 6v6c0 4.4 3 7.6 7 9 4-1.4 7-4.6 7-9V6l-7-3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 12l2 2 4-4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </span>
-          <h3>100% seguro</h3>
-          <p>Somente links oficiais de Mercado Livre, Amazon e Shopee.</p>
-        </li>
-      </ul>
-    </section>
-
-    <!-- ===================== DEPOIMENTOS ===================== -->
-    <section class="section section--proof" aria-label="Depoimentos de membros">
-      <header class="section__head">
-        <p class="eyebrow reveal">Depoimentos reais</p>
-        <h2 class="section__title reveal">
-          Todo mundo tá <span class="shine">economizando</span> no grupo
-        </h2>
-      </header>
-
-      <div class="marquee marquee--proof reveal" data-marquee="proof" aria-label="Prints de conversas de membros do grupo">
-        <div class="marquee__track" data-track></div>
-      </div>
-
-      <p class="section__note reveal">Prints reais enviados por membros do canal.</p>
-    </section>
-
-    <!-- ===================== MARKETPLACES ===================== -->
-    <section class="section section--brands" aria-label="Principais marketplaces">
-      <header class="section__head">
-        <p class="eyebrow reveal">Confiança</p>
-        <h2 class="section__title reveal">Principais <span class="shine">marketplaces</span></h2>
-        <p class="section__sub reveal">Ofertas verificadas nas maiores plataformas do Brasil.</p>
-      </header>
-
-      <div class="marquee marquee--brands reveal" data-marquee="brands" aria-label="Logos dos marketplaces parceiros">
-        <div class="marquee__track" data-track></div>
-      </div>
-    </section>
-
     <!-- ===================== CTA FINAL ===================== -->
-    <section class="finalcta" aria-label="Chamada final">
-      <h2 class="finalcta__title reveal">Pronto pra <span class="shine">parar de pagar caro</span>?</h2>
-      <p class="finalcta__sub reveal">Entra no canal e recebe as ofertas antes de todo mundo.</p>
-
-      <a class="btn reveal" data-cta href="#" target="_blank" rel="noopener">
-        <span>Entre agora no canal</span>
-        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-          <path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
-
-      <p class="warn reveal" role="alert">
-        <svg class="warn__icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-          <path d="M12 3.5 22 20H2L12 3.5Z" fill="#FFC53D" stroke="#111" stroke-width="1" stroke-linejoin="round"/>
-          <rect x="11" y="9.5" width="2" height="5.4" rx="1" fill="#111"/>
-          <circle cx="12" cy="17.4" r="1.25" fill="#111"/>
-        </svg>
-        <span>Entre agora, pois o grupo vai se tornar <strong>pago a qualquer momento</strong>.</span>
-      </p>
+    <section class="block final" aria-label="Entre no grupo">
+      <div class="wrap center">
+        <h2 class="h1 h1--caps reveal">Maior <span class="hl">segurança</span></h2>
+        <p class="lead reveal">Nossos links são <strong>verificados</strong> e <strong>100% confiáveis</strong>: você compra direto nas <strong>maiores lojas online do Brasil</strong>.</p>
+        <p class="lead lead--point reveal">👇 <strong>Clique abaixo e entre no Grupo</strong> 👇</p>
+        <div class="final__btns reveal">
+          <a class="cta" data-cta href="#" target="_blank" rel="noopener">
+              <span class="cta__ico"><svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><path fill="currentColor" d="M16.04 3C9.4 3 4 8.4 4 15.04c0 2.12.55 4.19 1.6 6.02L4 28l7.1-1.86a12 12 0 0 0 4.94 1.06h.01C22.68 27.2 28 21.8 28 15.16 28 8.5 22.7 3 16.04 3Zm0 21.9h-.01a9.9 9.9 0 0 1-5.04-1.38l-.36-.21-4.2 1.1 1.12-4.1-.24-.38a9.9 9.9 0 0 1-1.52-5.27c0-5.5 4.47-9.97 9.98-9.97 2.66 0 5.16 1.04 7.04 2.92a9.9 9.9 0 0 1 2.92 7.06c0 5.5-4.48 9.97-9.99 9.97Zm5.47-7.46c-.3-.15-1.77-.87-2.04-.97-.28-.1-.48-.15-.68.15-.2.3-.78.97-.95 1.17-.18.2-.35.22-.65.07-.3-.15-1.27-.47-2.42-1.5-.9-.8-1.5-1.78-1.67-2.08-.18-.3-.02-.46.13-.6.13-.14.3-.35.45-.53.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.68-1.64-.93-2.25-.25-.58-.5-.5-.68-.51h-.58c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.9 1.22 3.1c.15.2 2.1 3.2 5.08 4.49.7.3 1.26.49 1.69.62.7.23 1.35.2 1.86.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35Z"/></svg></span>
+              <span class="cta__txt">
+                <b>Quero entrar no grupo</b>
+                <small>100% grátis · entre agora</small>
+              </span>
+              <svg class="cta__arrow" viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M7 6l6 6-6 6M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span class="cta__shine" aria-hidden="true"></span>
+            </a>
+          <p class="warn warn--center" role="alert">
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 4 22 20H2L12 4Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M12 10v4.4" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="12" cy="17.2" r="1.2" fill="currentColor"/></svg>
+              <span>Grupo vira <b>pago a qualquer momento</b></span>
+            </p>
+        </div>
+      </div>
     </section>
-
-    <footer class="footer">
-      <p class="footer__brand">Tá<span>Barato</span></p>
-      <p class="footer__tag">Feito pra quem ama uma promoção.</p>
-      <p class="footer__legal">
-        © <span data-year>2026</span> TáBarato. Este canal reúne ofertas de terceiros;
-        confira sempre o preço e o vendedor antes de comprar.
-      </p>
-    </footer>
   </main>
 
-  <!-- Barra fixa que aparece após o hero (mobile) -->
-  <div class="sticky-cta" id="stickyCta" aria-hidden="true">
-    <span class="sticky-cta__txt"><strong>Grupo quase pago.</strong> Garanta sua vaga.</span>
-    <a class="btn btn--sm" data-cta href="#" target="_blank" rel="noopener">Entrar</a>
-  </div>
+  <footer class="footer">
+    <div class="wrap">
+      <p class="footer__brand">tá<b>Barato</b></p>
+      <p>© <span data-year>2026</span> TáBarato. Este grupo reúne ofertas de terceiros; confira sempre o preço e o vendedor antes de comprar.</p>
+    </div>
+  </footer>
+
+  <a class="totop" href="#header" aria-label="Voltar ao topo" data-totop>↑</a>
 
   <script src="script.js" defer></script>
 </body>

@@ -1,14 +1,15 @@
 # TáBarato — Landing page
 
-Landing page mobile-first para o canal **TáBarato**: comunidade de ofertas do
-Mercado Livre, Amazon e Shopee.
+Landing page mobile-first para o grupo **TáBarato**: promoções e achadinhos do
+Mercado Livre, Amazon e Shopee. A home segue o estilo hero âmbar + card de entrada
+(Montserrat, blocos brancos, FAQ, onda).
 
 ## Stack
 HTML + CSS + JavaScript puro. Sem build, sem dependências. É só abrir.
 
 ```
 index.html      estrutura + copy
-styles.css      design system, hero 9:16, carrosséis, animações
+styles.css      hero âmbar + onda, blocos, carrossel, FAQ
 script.js       CONFIG (link do canal + assets), carrosséis, reveals
 assets/         background do hero, prints de depoimento, logos  (ver assets/README.md)
 

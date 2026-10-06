@@ -1,15 +1,12 @@
 /* =========================================================
-   TáBarato — comportamento da landing page
+   TáBarato — comportamento da home
    ========================================================= */
 
 const CONFIG = {
   /* ▸ LINK DO GRUPO */
   channelUrl: "https://chat.whatsapp.com/HUCCTzHKEGQKIHsfC4joXs?mode=gi_t",
 
-  /* ▸ DEPOIMENTOS
-     Coloque as imagens em  assets/depoimentos/  e liste os caminhos aqui.
-     Ex.: ["assets/depoimentos/01.jpg", "assets/depoimentos/02.jpg"]
-     Deixe [] para usar os placeholders enquanto não tiver os prints.   */
+  /* ▸ DEPOIMENTOS (prints do WhatsApp em assets/depoimentos/) */
   depoimentos: [
     "assets/depoimentos/01.webp",
     "assets/depoimentos/02.webp",
@@ -19,48 +16,40 @@ const CONFIG = {
     "assets/depoimentos/06.webp",
   ],
 
-  /* ▸ MARKETPLACES
-     Coloque as logos em  assets/logos/  e liste aqui.
-     Cada item pode ser:
-       - string com o caminho da imagem:  "assets/logos/amazon.svg"
-       - objeto { nome, img?, cor? } para o placeholder de texto        */
+  /* ▸ LOJAS
+     Coloque as logos em assets/logos/ — enquanto o arquivo não existir,
+     aparece o nome da loja em texto, na cor da marca.                    */
   marketplaces: [
-    { nome: "Mercado Livre", img: "assets/logos/mercado-livre.svg", cor: "#FFE600" },
-    { nome: "Amazon",        img: "assets/logos/amazon.svg",        cor: "#FF9900" },
+    { nome: "Mercado Livre", img: "assets/logos/mercado-livre.svg", cor: "#2D3277" },
+    { nome: "Amazon",        img: "assets/logos/amazon.svg",        cor: "#232F3E" },
     { nome: "Shopee",        img: "assets/logos/shopee.svg",        cor: "#EE4D2D" },
-    { nome: "AliExpress",    img: "assets/logos/aliexpress.svg",    cor: "#FF4747" },
     { nome: "Magalu",        img: "assets/logos/magalu.svg",        cor: "#0086FF" },
+    { nome: "AliExpress",    img: "assets/logos/aliexpress.svg",    cor: "#E62E04" },
   ],
 };
 
-/* Frases dos placeholders de depoimento (usadas só quando não há print) */
+/* Placeholder de depoimento (só aparece se a imagem não carregar) */
 const WA_FAKE = [
-  [["in", "Gente esse grupo é <b>surreal</b>"], ["out", "Comprei um fone que tava <b>R$ 349</b> por <b>R$ 179</b> 😱"], ["out", "chegou hoje, original 👌"]],
-  [["out", "Economizei <b>R$ 210</b> na air fryer"], ["in", "Mesma coisa aqui, valeu demais 🙏"], ["in", "melhor grupo de promo disparado"]],
-  [["in", "Link é seguro mesmo?"], ["out", "Sempre site oficial, nunca deu problema"], ["in", "comprei tranquilo então, obrigado!"]],
-  [["out", "Tênis por <b>R$ 89</b> 🤯 tava 219"], ["in", "corre que acaba rápido"], ["out", "peguei 2 kkkk"]],
-  [["in", "Já paguei o grupo só de economia essa semana"], ["out", "Real, melhor investimento"], ["in", "vou renovar com certeza"]],
-  [["out", "Smart TV <b>R$ 400 mais barata</b> que na loja"], ["in", "esse grupo devia ser pago"], ["out", "aproveita que ainda tá no ar"]],
-  [["in", "Achei <b>52% off</b> no perfume que eu queria"], ["out", "boa! marca aí pra galera 🔥"], ["in", "feito 👇"]],
-  [["out", "3 compras esse mês, <b>R$ 640</b> economizados"], ["in", "🔥🔥🔥"], ["in", "tô sempre de olho nos alertas"]],
+  [["in", "Gente esse grupo é <b>surreal</b>"], ["out", "Comprei um fone que tava <b>R$ 349</b> por <b>R$ 179</b> 😱"]],
+  [["out", "Economizei <b>R$ 210</b> na air fryer"], ["in", "Mesma coisa aqui, valeu demais 🙏"]],
+  [["in", "Link é seguro mesmo?"], ["out", "Sempre site oficial, nunca deu problema"]],
 ];
-const WA_TIMES = ["09:12", "09:13", "09:15", "09:18", "09:21", "09:24"];
-
-/* --------------------------------------------------------- */
 
 document.addEventListener("DOMContentLoaded", () => {
   wireCtas();
   buildProof();
   buildBrands();
   setupReveal();
-  setupStickyCta();
+  setupCounters();
+  setupSlider();
+  setupFaq();
+  setupToTop();
   setYear();
 });
 
 /* ---------- CTAs ----------
-   Objetivo: o clique tem que abrir o APP do WhatsApp (não o site), mesmo
-   quando a página está sendo vista dentro do navegador embutido do
-   Instagram/TikTok/Facebook etc. */
+   O clique tem que abrir o APP do WhatsApp (não o site), mesmo dentro do
+   navegador embutido do Instagram/TikTok/Facebook. */
 
 function detectInAppBrowser() {
   const ua = navigator.userAgent || "";
@@ -70,10 +59,8 @@ function detectInAppBrowser() {
   return { inApp, isAndroid, isIOS };
 }
 
-/* No Android, um link https normal costuma ficar preso dentro do navegador
-   embutido do Instagram/TikTok. Um link "intent://" força o Android a
-   entregar a navegação pro app do WhatsApp de verdade, pulando o navegador
-   embutido — com fallback pro link original caso o app não esteja instalado. */
+/* Android + navegador embutido: um link "intent://" entrega a navegação
+   direto pro app do WhatsApp, com fallback pro link normal. */
 function buildWhatsAppHref(url, { inApp, isAndroid }) {
   if (!inApp || !isAndroid) return url;
   const semProtocolo = url.replace(/^https?:\/\//, "");
@@ -81,9 +68,8 @@ function buildWhatsAppHref(url, { inApp, isAndroid }) {
   return `intent://${semProtocolo}#Intent;scheme=https;package=com.whatsapp;S.browser_fallback_url=${fallback};end`;
 }
 
-/* Dispara a conversão "Subscribe" do Meta Pixel no clique do CTA. Em
-   try/catch e checando se fbq existe pra nunca travar o clique (adblock,
-   pixel bloqueado, etc. não podem impedir a pessoa de entrar no grupo). */
+/* Conversão "Subscribe" do Meta Pixel no clique de qualquer CTA. Em try/catch
+   pra um pixel bloqueado nunca impedir a pessoa de entrar no grupo. */
 function trackSubscribe() {
   try {
     if (typeof fbq === "function") fbq("track", "Subscribe");
@@ -101,21 +87,20 @@ function wireCtas() {
     } else {
       a.addEventListener("click", (e) => {
         e.preventDefault();
-        console.warn("[TáBarato] Defina CONFIG.channelUrl em script.js com o link do seu canal.");
+        console.warn("[TáBarato] Defina CONFIG.channelUrl em script.js com o link do grupo.");
       });
     }
   });
 
-  /* iOS dentro de navegador embutido: não existe um truque de link que force
-     a troca de app (a Apple/Meta bloqueiam isso de propósito). Nesse caso
-     avisamos a pessoa a abrir no navegador de verdade pra entrar de primeira. */
+  /* iOS dentro de navegador embutido: não existe truque de link que force a
+     troca de app. Avisamos a pessoa a abrir no navegador de verdade. */
   if (url && url !== "#" && env.inApp && env.isIOS) showInAppHint();
 }
 
 function showInAppHint() {
   try {
     if (sessionStorage.getItem("tb_inapp_hint_dismissed")) return;
-  } catch (e) { /* localStorage bloqueado — segue sem persistir a dispensa */ }
+  } catch (e) { /* storage bloqueado — segue sem persistir */ }
 
   const bar = el("div", "inapp-hint");
   const p = el("p");
@@ -129,18 +114,16 @@ function showInAppHint() {
     setTimeout(() => bar.remove(), 300);
     try { sessionStorage.setItem("tb_inapp_hint_dismissed", "1"); } catch (e) {}
   });
-
   bar.append(p, btn);
   document.body.appendChild(bar);
   requestAnimationFrame(() => requestAnimationFrame(() => bar.classList.add("show")));
 }
 
-/* ---------- Carrossel de depoimentos ---------- */
+/* ---------- Depoimentos (carrossel lento e infinito) ---------- */
 function buildProof() {
   const track = document.querySelector('[data-marquee="proof"] [data-track]');
   if (!track) return;
-
-  const items = (CONFIG.depoimentos.length ? CONFIG.depoimentos : WA_FAKE.map(() => null));
+  const items = CONFIG.depoimentos.length ? CONFIG.depoimentos : WA_FAKE.map(() => null);
 
   const makeCard = (src, i) => {
     const card = el("div", "marquee__item proof-card");
@@ -156,7 +139,6 @@ function buildProof() {
     }
     return card;
   };
-
   // dois conjuntos idênticos = loop perfeito com translateX(-50%)
   const set = () => items.map(makeCard);
   [...set(), ...set()].forEach((c) => track.appendChild(c));
@@ -166,60 +148,40 @@ function waPlaceholder(i) {
   const msgs = WA_FAKE[i % WA_FAKE.length];
   const wrap = el("div", "wa");
   wrap.setAttribute("aria-hidden", "true");
-
   const bar = el("div", "wa__bar");
   bar.textContent = "Membro TáBarato";
-
   const body = el("div", "wa__body");
-  msgs.forEach(([dir, html], j) => {
+  msgs.forEach(([dir, html]) => {
     const m = el("div", "wa__msg" + (dir === "in" ? " wa__msg--in" : ""));
     m.innerHTML = html;
-    m.dataset.t = WA_TIMES[(i + j) % WA_TIMES.length];
     body.appendChild(m);
   });
-
   const foot = el("div", "wa__foot");
   foot.appendChild(el("span")).textContent = "Mensagem";
-
   wrap.append(bar, body, foot);
   return wrap;
 }
 
-/* ---------- Carrossel de marketplaces ---------- */
+/* ---------- Lojas ---------- */
 function buildBrands() {
-  const track = document.querySelector('[data-marquee="brands"] [data-track]');
-  if (!track) return;
-
-  const list = CONFIG.marketplaces.map((m) => (typeof m === "string" ? { img: m, nome: "" } : m));
-
-  const makePill = (m) => {
-    const pill = el("div", "marquee__item brand-pill");
-    const showText = () => {
-      pill.innerHTML = "";
-      if (m.cor) {
-        const dot = el("span", "brand-pill__dot");
-        dot.style.background = m.cor;
-        pill.appendChild(dot);
-      }
-      const t = el("span", "brand-pill__txt");
-      t.textContent = m.nome || "Marketplace";
-      pill.appendChild(t);
-    };
+  const box = document.querySelector("[data-brands]");
+  if (!box) return;
+  CONFIG.marketplaces.forEach((m) => {
+    const item = el("span", "brand");
+    item.style.setProperty("--c", m.cor || "#333");
+    const showText = () => { item.innerHTML = ""; item.textContent = m.nome; };
     if (m.img) {
       const img = el("img");
       img.loading = "lazy";
-      img.alt = m.nome || "Marketplace parceiro";
+      img.alt = m.nome;
       img.src = m.img;
       img.onerror = showText;
-      pill.appendChild(img);
+      item.appendChild(img);
     } else {
       showText();
     }
-    return pill;
-  };
-
-  const set = () => list.map(makePill);
-  [...set(), ...set()].forEach((p) => track.appendChild(p));
+    box.appendChild(item);
+  });
 }
 
 /* ---------- Reveal ao rolar ---------- */
@@ -237,25 +199,102 @@ function setupReveal() {
         io.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+  }, { threshold: 0.1, rootMargin: "0px 0px -6% 0px" });
+  els.forEach((e) => io.observe(e));
+}
 
-  els.forEach((e, i) => {
-    e.style.transitionDelay = Math.min(i % 4, 3) * 70 + "ms";
-    io.observe(e);
+/* ---------- Contador (números) ----------
+   Só começa quando o card entra na tela, com um respiro antes (pra pessoa
+   não descer e já encontrar o número parado). Entra com blur/fade, conta
+   bem devagar com desaceleração suave e termina com um "pop". */
+function setupCounters() {
+  const counters = document.querySelectorAll("[data-counter]");
+  if (!counters.length) return;
+  const fmt = (n) => Math.round(n).toLocaleString("pt-BR");
+
+  counters.forEach((node) => {
+    const target = parseInt(node.dataset.target, 10) || 0;
+    const prefix = node.dataset.prefix || "";
+    const final = () => { node.textContent = prefix + fmt(target); };
+
+    if (!("IntersectionObserver" in window) ||
+        matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      final();
+      return;
+    }
+
+    node.textContent = prefix + "0";
+    node.classList.add("pre");               // começa borrado/invisível
+
+    const START_DELAY = 700;                 // ms — respiro antes de começar
+    const DURATION = 3600;                   // ms — contagem lenta
+    const run = () => {
+      node.classList.remove("pre");          // blur/fade de entrada
+      setTimeout(() => {
+        const t0 = performance.now();
+        const tick = (now) => {
+          const p = Math.min(1, (now - t0) / DURATION);
+          const eased = 1 - Math.pow(1 - p, 3.4);   // desacelera até parar
+          node.textContent = prefix + fmt(target * eased);
+          if (p < 1) {
+            requestAnimationFrame(tick);
+          } else {
+            final();
+            node.classList.add("pop");
+          }
+        };
+        requestAnimationFrame(tick);
+      }, START_DELAY);
+    };
+
+    const watch = node.closest(".stat") || node;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) { run(); io.unobserve(entry.target); }
+      });
+    }, { threshold: 0.45 });
+    io.observe(watch);
   });
 }
 
-/* ---------- Barra fixa depois do hero ---------- */
-function setupStickyCta() {
-  const bar = document.getElementById("stickyCta");
-  const hero = document.getElementById("hero");
-  if (!bar || !hero || !("IntersectionObserver" in window)) return;
+/* ---------- Slider de vantagens (bolinhas) ---------- */
+function setupSlider() {
+  const slider = document.querySelector("[data-slider]");
+  const dotsBox = document.querySelector("[data-dots]");
+  if (!slider || !dotsBox) return;
+  const slides = [...slider.children];
+  const dots = slides.map((_, i) => {
+    const d = el("i");
+    d.addEventListener("click", () => slider.scrollTo({ left: slides[i].offsetLeft - slider.offsetLeft, behavior: "smooth" }));
+    dotsBox.appendChild(d);
+    return d;
+  });
+  const update = () => {
+    const w = slider.clientWidth || 1;
+    const idx = Math.max(0, Math.min(slides.length - 1, Math.round(slider.scrollLeft / w)));
+    dots.forEach((d, i) => d.classList.toggle("on", i === idx));
+  };
+  slider.addEventListener("scroll", () => requestAnimationFrame(update), { passive: true });
+  update();
+}
 
-  const io = new IntersectionObserver(([entry]) => {
-    bar.classList.toggle("show", !entry.isIntersecting);
-    bar.setAttribute("aria-hidden", entry.isIntersecting ? "true" : "false");
-  }, { threshold: 0, rootMargin: "-40% 0px 0px 0px" });
-  io.observe(hero);
+/* ---------- FAQ: só uma pergunta aberta por vez ---------- */
+function setupFaq() {
+  const list = document.querySelector("[data-faq]");
+  if (!list) return;
+  list.addEventListener("toggle", (e) => {
+    if (!e.target.open) return;
+    list.querySelectorAll("details[open]").forEach((d) => { if (d !== e.target) d.open = false; });
+  }, true);
+}
+
+/* ---------- Voltar ao topo ---------- */
+function setupToTop() {
+  const btn = document.querySelector("[data-totop]");
+  if (!btn) return;
+  const onScroll = () => btn.classList.toggle("show", window.scrollY > 700);
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
 }
 
 /* ---------- Ano no rodapé ---------- */
